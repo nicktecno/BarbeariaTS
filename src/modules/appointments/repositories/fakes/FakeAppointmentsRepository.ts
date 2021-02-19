@@ -11,9 +11,14 @@ import Agendamento from '../../infra/typeorm/entities/Appointments';
 class FakeRepositorioDeAgendamentos implements IAppointmentsRepository {
   private agendamentos: Agendamento[] = [];
 
-  public async findByDate(data: Date): Promise<Agendamento | undefined> {
-    const findAppointment = this.agendamentos.find(agendamento =>
-      isEqual(agendamento.data, data)
+  public async findByDate(
+    data: Date,
+    prestador_id: string
+  ): Promise<Agendamento | undefined> {
+    const findAppointment = this.agendamentos.find(
+      agendamento =>
+        isEqual(agendamento.data, data) &&
+        agendamento.prestador_id === prestador_id
     );
 
     return findAppointment;

@@ -45,7 +45,8 @@ class CriarAgendamentoService {
     }
 
     const ProcurarAgendamentosMesmaData = await this.agendamentosRepositorio.findByDate(
-      DataAgendamento
+      DataAgendamento,
+      prestador_id
     );
     if (ProcurarAgendamentosMesmaData) {
       throw new AppError('Esse agendamento já está marcado');
