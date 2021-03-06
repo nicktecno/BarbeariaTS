@@ -15,7 +15,8 @@ interface IUploadConfig {
   };
 
   config: {
-    disk: Record<string, unknown>;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    disk: {};
     aws: {
       bucket: string;
     };

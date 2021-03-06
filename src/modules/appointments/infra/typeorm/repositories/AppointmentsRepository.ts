@@ -40,7 +40,6 @@ class RepositorioDeAgendamentos implements IAppointmentsRepository {
             `to_char(${dataFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`
         ),
       },
-      relations: ['user'],
     });
     return appointments;
   }
@@ -62,6 +61,7 @@ class RepositorioDeAgendamentos implements IAppointmentsRepository {
             `to_char(${dataFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`
         ),
       },
+      relations: ['user'],
     });
     return appointments;
   }

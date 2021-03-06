@@ -4,6 +4,7 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 
 import User from '@modules/users/infra/typeorm/entities/User';
+import { classToClass } from 'class-transformer';
 
 interface IRequest {
   user_id: string;
@@ -23,15 +24,19 @@ class ListProvidersService {
     let users = await this.cacheProvider.recover<User[]>(
       `providers-list:${user_id}`
     );
+
     if (!users) {
       users = await this.usersRepository.findAllProviders({
         except_user_id: user_id,
       });
 
       console.log(`A query no banco foi feita!`);
-    }
 
-    await this.cacheProvider.save(`providers-list:${user_id}`, users);
+      await this.cacheProvider.save(
+        `providers-list:${user_id}`,
+        classToClass(users)
+      );
+    }
 
     return users;
   }
